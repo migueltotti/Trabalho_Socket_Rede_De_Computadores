@@ -22,7 +22,7 @@ public class MultipleConnection
             var clientIp = remoteEndPoint?.Address;
             var clientPort = remoteEndPoint?.Port;
 
-            Console.WriteLine("Cliente conectado!");
+            Console.WriteLine("\nCliente conectado!");
             Console.WriteLine($"Socket: [TCP { clientIp}:{ clientPort}]");
 
             // Task.Run instancia uma nova thread para lidar com várias conexões simultâneas
@@ -34,13 +34,13 @@ public class MultipleConnection
                 var bytesRead = await stream.ReadAsync(buffer);
 
                 var received = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                Console.WriteLine($"Recebido: {received}");
+                Console.WriteLine($"Recebido do cliente: \n>> {received}");
 
-                var response = Encoding.UTF8.GetBytes("Mensagem recebida pelo servidor\n");
+                var response = Encoding.UTF8.GetBytes("Mensagem recebida pelo servidor");
                 await stream.WriteAsync(response);
 
                 client.Close();
-                Console.WriteLine("Conexão encerrada\n");
+                Console.WriteLine("\nConexão encerrada\n");
             });
 
         }

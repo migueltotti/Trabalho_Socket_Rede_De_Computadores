@@ -21,7 +21,7 @@ public class OneConnection
         var clientIp = remoteEndPoint?.Address;
         var clientPort = remoteEndPoint?.Port;
 
-        Console.WriteLine("Cliente conectado!");
+        Console.WriteLine("\nCliente conectado!");
         Console.WriteLine($"Socket: [TCP {clientIp}:{clientPort}]");
 
         if (debug)
@@ -37,7 +37,7 @@ public class OneConnection
         var bytesRead = stream.Read(buffer, 0, buffer.Length);
 
         var mensagem = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-        Console.WriteLine($"Recebido do cliente: {mensagem}");
+        Console.WriteLine($"Recebido do cliente: \n>> {mensagem}");
 
         // Envia resposta
         var resposta = Encoding.UTF8.GetBytes("Mensagem recebida com sucesso");
@@ -56,6 +56,6 @@ public class OneConnection
         // Para o servidor
         listener.Stop();
 
-        Console.WriteLine("Servidor finalizado.");
+        Console.WriteLine("\nServidor finalizado.\n");
     }
 }

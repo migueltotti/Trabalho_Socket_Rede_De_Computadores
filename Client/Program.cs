@@ -7,19 +7,23 @@ internal class Program
 {
     static void Main(string[] args)
     {
+        Console.Clear();
+
         var serverHostname = "localhost"; // 127.0.0.1
         var serverPort = 5000;
 
         var client = new TcpClient(serverHostname, serverPort);
 
-        Console.WriteLine("Conectado ao servidor!");
+        Console.WriteLine("\nConectado ao servidor!");
+        Console.WriteLine($"{serverHostname}:{serverPort}");
 
         var stream = client.GetStream();
 
         // Envia mensagem
         Console.WriteLine("Escreva a menasgem que deseja enviar ao servidor:");
+        Console.Write(">> ");
         var mensagem = Console.ReadLine() ?? "";
-        var dados = Encoding.UTF8.GetBytes(mensagem);
+        var dados = Encoding.UTF8.GetBytes(mensagem.Replace(">>", "").Trim());
 
         stream.Write(dados, 0, dados.Length);
 
@@ -28,12 +32,12 @@ internal class Program
         var bytesRead = stream.Read(buffer, 0, buffer.Length);
 
         var resposta = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-        Console.WriteLine($"Resposta do servidor: {resposta}");
+        Console.WriteLine($"\nResposta do servidor: {resposta}");
 
         // Fecha conexão
         stream.Close();
         client.Close();
 
-        Console.WriteLine("Cliente finalizado.");
+        Console.WriteLine("\nCliente finalizado.\n");
     }
 }
